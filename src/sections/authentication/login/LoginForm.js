@@ -1,5 +1,4 @@
 import * as Yup from 'yup';
-import { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useFormik, Form, FormikProvider } from 'formik';
 // material
@@ -13,14 +12,18 @@ import {
   FormControlLabel
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+import { useState } from '@hookstate/core';
+
 // component
+import { postData } from '../../../global/apiTemplate';
 import Iconify from '../../../components/Iconify';
+import globalState from '../../../hooks/globalState';
 
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
+  const showPassword = useState(false);
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
@@ -35,14 +38,25 @@ export default function LoginForm() {
     },
     validationSchema: LoginSchema,
     onSubmit: () => {
-      navigate('/dashboard/app', { replace: true });
+      setSubmitting(true);
+      postData('http://localhost:1337/api/v1/users/login', {
+        email: values.email,
+        password: values.password
+      }).then((data) => {
+        globalState.set({ isLoggedIn: true, userEmail: values.email, authToken: data.token });
+
+        navigate('/dashboard/app', { replace: true });
+        console.log(data); // JSON data parsed by `data.json()` call
+      });
+      // update global state
     }
   });
 
-  const { errors, touched, values, isSubmitting, handleSubmit, getFieldProps } = formik;
+  const { errors, touched, values, isSubmitting, handleSubmit, getFieldProps, setSubmitting } =
+    formik;
 
   const handleShowPassword = () => {
-    setShowPassword((show) => !show);
+    showPassword.set(!showPassword.get());
   };
 
   return (
@@ -62,14 +76,14 @@ export default function LoginForm() {
           <TextField
             fullWidth
             autoComplete="current-password"
-            type={showPassword ? 'text' : 'password'}
+            type={showPassword.get() ? 'text' : 'password'}
             label="Password"
             {...getFieldProps('password')}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton onClick={handleShowPassword} edge="end">
-                    <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
+                    <Iconify icon={showPassword.get() ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
                   </IconButton>
                 </InputAdornment>
               )

@@ -1,11 +1,14 @@
 // material
 import { styled } from '@mui/material/styles';
 import { Card, Stack, Container, Typography } from '@mui/material';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 // layouts
 import AuthLayout from '../layouts/AuthLayout';
 // components
 import Page from '../components/Page';
 import { LoginForm } from '../sections/authentication/login';
+import globalState from '../hooks/globalState';
 
 // ----------------------------------------------------------------------
 
@@ -37,6 +40,15 @@ const ContentStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function Login() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (globalState.get().isLoggedIn) {
+      console.log('HELLO I AM iN LOGIN');
+      navigate('/dashboard/app', { replace: true });
+    }
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <RootStyle title="Login">
       <AuthLayout />

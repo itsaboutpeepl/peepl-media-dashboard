@@ -15,16 +15,6 @@ const sidebarConfig = [
     title: 'user',
     path: '/dashboard/user',
     icon: getIcon('eva:people-fill')
-  },
-  {
-    title: 'Not found',
-    path: '/404',
-    icon: getIcon('eva:alert-triangle-fill')
-  },
-  {
-    title: 'logout',
-    path: '/login',
-    icon: getIcon('eva:lock-fill')
   }
 ];
 

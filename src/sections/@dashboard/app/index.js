@@ -1,8 +1,10 @@
-export { default as AppBugReports } from './AppBugReports';
+export { default as AppBugReports } from './AppWeekViews';
 export { default as AppConversionRates } from './AppConversionRates';
 export { default as AppCurrentVisits } from './AppCurrentVisits';
-export { default as AppItemOrders } from './AppItemOrders';
+export { default as AppItemOrders } from './AppPeeplRewards';
 export { default as AppNewsUpdate } from './AppLatestVideos';
-export { default as AppNewUsers } from './AppNewUsers';
+export { default as AppNewUsers } from './AppCurrentLive';
 export { default as AppWebsiteVisits } from './AppWebsiteVisits';
-export { default as AppWeeklySales } from './AppWeeklySales';
+export { default as AppWeeklySales } from './AppTotalViews';
+export { default as AppCreateNewVideos } from './AppCreateNewVideos';
+export { default as AppGeneralVideoSettings } from './AppGeneralVideoSettings';

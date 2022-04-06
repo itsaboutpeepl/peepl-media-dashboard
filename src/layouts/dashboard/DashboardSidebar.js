@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 // material
 import { styled } from '@mui/material/styles';
-import { Box, Link, Drawer, Typography, Avatar } from '@mui/material';
+import { Box, Drawer, Typography, Avatar, Stack, Button } from '@mui/material';
 // mocks_
 import account from '../../_mocks_/account';
 // hooks
@@ -14,6 +14,8 @@ import Scrollbar from '../../components/Scrollbar';
 import NavSection from '../../components/NavSection';
 //
 import sidebarConfig from './SidebarConfig';
+import Iconify from '../../components/Iconify';
+import globalState from '../../hooks/globalState';
 
 // ----------------------------------------------------------------------
 
@@ -45,6 +47,12 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   const { pathname } = useLocation();
 
   const isDesktop = useResponsive('up', 'lg');
+  const getIcon = (name) => <Iconify icon={name} width={22} height={22} />;
+
+  const handleLogout = () => {
+    console.log('HELLO TRYING TO LOG OUT');
+    globalState.set({ isLoggedIn: false, userEmail: '', authToken: '' });
+  };
 
   useEffect(() => {
     if (isOpenSidebar) {
@@ -65,24 +73,33 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
       </Box>
 
       <Box sx={{ mb: 5, mx: 2.5 }}>
-        <Link underline="none" component={RouterLink} to="#">
-          <AccountStyle>
-            <Avatar src={account.photoURL} alt="photoURL" />
-            <Box sx={{ ml: 2 }}>
-              <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                {account.firstName.concat(' ').concat(account.lastName)}
-              </Typography>
-              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                {account.role}
-              </Typography>
-            </Box>
-          </AccountStyle>
-        </Link>
+        <AccountStyle>
+          <Avatar src={account.photoURL} alt="photoURL" />
+          <Box sx={{ ml: 2 }}>
+            <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
+              {account.firstName.concat(' ').concat(account.lastName)}
+            </Typography>
+            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+              {account.role}
+            </Typography>
+          </Box>
+        </AccountStyle>
       </Box>
 
       <NavSection navConfig={sidebarConfig} />
 
       <Box sx={{ flexGrow: 1 }} />
+      <Box sx={{ px: 2.5, pb: 3, mt: 10 }}>
+        <Stack
+          alignItems="center"
+          spacing={3}
+          sx={{ pt: 5, borderRadius: 2, position: 'relative' }}
+        >
+          <Button startIcon={getIcon('eva:lock-fill')} onClick={handleLogout} href="/login">
+            Logout
+          </Button>
+        </Stack>
+      </Box>
     </Scrollbar>
   );
 
