@@ -29,8 +29,9 @@ export function CreateVideoForm() {
   const VideoSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
     description: Yup.string().required('Description is required'),
+    thumbnail: Yup.string().url('Image is required').required('Thumbnail is required'),
     url: Yup.string().url('Must be a valid URL').required('Url is required'),
-    ctaLink: Yup.string().required('CTA Link is required'),
+    ctaLink: Yup.string().url('Must be a valid URL').required('CTA Link is required'),
     rewardsPerView: Yup.number().required('required'),
     totalRewardsBudget: Yup.number().required('required'),
     rewardsEndDate: Yup.number().required('required')
@@ -122,6 +123,14 @@ export function CreateVideoForm() {
             {...getFieldProps('description')}
             error={Boolean(touched.description && errors.description)}
             helperText={touched.description && errors.description}
+          />
+
+          <TextField
+            type="url"
+            label="Thumbnail Url"
+            {...getFieldProps('thumbnail')}
+            error={Boolean(touched.thumbnail && errors.thumbnail)}
+            helperText={touched.thumbnail && errors.thumbnail}
           />
 
           <TextField
