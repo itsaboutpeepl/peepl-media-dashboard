@@ -8,7 +8,7 @@ const analyticsState = createState({
   totalViews: 0
 });
 
-const analyticsEndpoint = 'http://localhost:1337/api/v1/partners/analytics';
+const analyticsEndpoint = 'https://media.itsaboutpeepl.com/api/v1/partners/analytics';
 
 const fetchResource = () =>
   getData(analyticsEndpoint).then((data) =>
