@@ -18,7 +18,7 @@ NewsItem.propTypes = {
 const latestVideosState = createState([]);
 
 const latestVideosEndpoint =
-  'https://media.itsaboutpeepl.com/api/v1/partners/32d65a8b-f97f-43de-bed8-e413de19d026/videos';
+  'https://media.itsaboutpeepl.com/api/v1/partners/52841587-623b-4ffa-9a26-420a19fbb6f8/videos';
 
 const fetchResource = () =>
   getData(latestVideosEndpoint).then((data) => latestVideosState.set(data.videos));
