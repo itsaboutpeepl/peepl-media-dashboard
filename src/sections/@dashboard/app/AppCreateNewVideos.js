@@ -51,7 +51,7 @@ export function CreateVideoForm() {
     validationSchema: VideoSchema,
     onSubmit: () => {
       setSubmitting(true);
-      postData('http://localhost:1337/api/v1/videos', {
+      postData('https://media.itsaboutpeepl.com/api/v1/videos', {
         name: values.name,
         description: values.description,
         thumbnail: values.thumbnail,

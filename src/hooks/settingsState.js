@@ -9,7 +9,7 @@ const generalVideoSettingsState = createState({
   publicId: ''
 });
 
-const generalVideoSettingsEndpoint = 'http://localhost:1337/api/v1/partners/settings';
+const generalVideoSettingsEndpoint = 'https://media.itsaboutpeepl.com/api/v1/partners/settings';
 
 const fetchResource = () => {
   getData(generalVideoSettingsEndpoint).then((data) => {

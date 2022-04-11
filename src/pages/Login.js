@@ -65,7 +65,7 @@ export default function Login() {
             <Typography variant="h4" gutterBottom>
               Sign in to the Peepl Network
             </Typography>
-            <Typography sx={{ color: 'text.secondary' }}>Enter your details below.</Typography>
+            <Typography sx={{ color: 'text.secondary' }}>Enter your details below!</Typography>
           </Stack>
           <LoginForm />
         </ContentStyle>

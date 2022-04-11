@@ -39,7 +39,7 @@ export default function LoginForm() {
     validationSchema: LoginSchema,
     onSubmit: () => {
       setSubmitting(true);
-      postData('http://localhost:1337/api/v1/users/login', {
+      postData('https://media.itsaboutpeepl.com/api/v1/users/login', {
         email: values.email,
         password: values.password
       }).then((data) => {

@@ -40,7 +40,7 @@ export function GeneralVideoSettingsForm() {
     validationSchema: SettingsSchema,
     onSubmit: () => {
       setSubmitting(true);
-      postData('http://localhost:1337/api/v1/partners/settings', {
+      postData('https://media.itsaboutpeepl.com/api/v1/partners/settings', {
         monthlyTokenCap: values.monthlyTokenCap,
         weeklyUserTokenCap: values.weeklyUserTokenCap
       })
