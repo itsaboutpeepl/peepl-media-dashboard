@@ -22,7 +22,7 @@ export default function AppBugReports() {
   const state = useState(analyticsState);
   return (
     <RootStyle>
-      å<Typography variant="h3">{fShortenNumber(state.get().weekViews)}</Typography>
+      <Typography variant="h3">{fShortenNumber(state.get().weekViews)}</Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
         Views this week
       </Typography>
