@@ -29,3 +29,17 @@ export async function getData(url = '') {
     return [];
   }
 }
+
+export async function delData(url = '') {
+  try {
+    const response = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        Authorization: 'Bearer '.concat(globalState.get().authToken)
+      }
+    });
+    return response.json();
+  } catch (error) {
+    return [];
+  }
+}

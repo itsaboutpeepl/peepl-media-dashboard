@@ -8,6 +8,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 
 import { useState } from '@hookstate/core';
 import { postData } from '../../../global/apiTemplate';
+import { fetchResource } from './AppLatestVideos';
 
 // ----------------------------------------------------------------------
 
@@ -28,10 +29,10 @@ export function CreateVideoForm() {
 
   const VideoSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
-    description: Yup.string().required('Description is required'),
+    description: Yup.string(),
     thumbnail: Yup.string().url('Image is required').required('Thumbnail is required'),
     url: Yup.string().url('Must be a valid URL').required('Url is required'),
-    ctaLink: Yup.string().url('Must be a valid URL').required('CTA Link is required'),
+    ctaLink: Yup.string().url('Must be a valid URL'),
     rewardsPerView: Yup.number().required('required'),
     totalRewardsBudget: Yup.number().required('required'),
     rewardsEndDate: Yup.number().required('required')
@@ -46,7 +47,8 @@ export function CreateVideoForm() {
       ctaLink: '',
       rewardsPerView: 0,
       totalRewardsBudget: 0,
-      rewardsEndDate: Math.round(new Date().getTime())
+      rewardsEndDate: Math.round(new Date().getTime()),
+      status: 'live'
     },
     validationSchema: VideoSchema,
     onSubmit: () => {
@@ -59,12 +61,14 @@ export function CreateVideoForm() {
         ctaLink: values.ctaLink,
         rewardsPerView: values.rewardsPerView,
         totalRewardsBudget: values.totalRewardsBudget,
-        rewardsEndDate: values.rewardsEndDate
+        rewardsEndDate: values.rewardsEndDate,
+        status: 'live'
       })
         .then((data) => {
           setOpenSB(true);
           setSuccess(true);
           console.log(data);
+          fetchResource();
         })
         .catch((error) => {
           setOpenSB(true);

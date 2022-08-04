@@ -7,7 +7,7 @@ import { Box, Stack, Card, Typography, CardHeader, IconButton } from '@mui/mater
 import Scrollbar from '../../../components/Scrollbar';
 import Iconify from '../../../components/Iconify';
 import { fShortenNumber } from '../../../utils/formatNumber';
-import { getData } from '../../../global/apiTemplate';
+import { delData, getData } from '../../../global/apiTemplate';
 
 // ----------------------------------------------------------------------
 
@@ -20,10 +20,9 @@ const latestVideosState = createState([]);
 const latestVideosEndpoint =
   'https://media.itsaboutpeepl.com/api/v1/partners/52841587-623b-4ffa-9a26-420a19fbb6f8/videos';
 
-const fetchResource = () =>
-  getData(latestVideosEndpoint).then((data) => latestVideosState.set(data.videos));
-
 fetchResource();
+
+const deleteVideosEndpoint = 'https://media.itsaboutpeepl.com/api/v1/videos/';
 
 function NewsItem({ news }) {
   const {
@@ -35,7 +34,8 @@ function NewsItem({ news }) {
     ctaLink,
     rewardsEndDate,
     rewardsPerView,
-    totalRewardsBudget
+    totalRewardsBudget,
+    publicId
   } = news;
 
   return (
@@ -94,6 +94,16 @@ function NewsItem({ news }) {
           {formatDistance(createdAt, new Date(), { addSuffix: true })}
         </Typography>
       </Box>
+      <IconButton
+        onClick={() => {
+          delData(deleteVideosEndpoint + publicId);
+          setTimeout(() => {
+            fetchResource();
+          }, 1000);
+        }}
+      >
+        <Iconify icon="eva:close-circle-outline" width={20} height={20} />
+      </IconButton>
     </Stack>
   );
 }
@@ -134,4 +144,8 @@ export default function AppNewsUpdate() {
       </Box> */}
     </Card>
   );
+}
+
+export function fetchResource() {
+  getData(latestVideosEndpoint).then((data) => latestVideosState.set(data.videos));
 }
